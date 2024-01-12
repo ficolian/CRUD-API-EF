@@ -24,5 +24,6 @@
 
 	<ItemGroup>
 	    <ProjectReference Include="..\Fish.Application\Fish.Application.csproj" />
+		<ProjectReference Include="..\Fish.Entity\Fish.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>
