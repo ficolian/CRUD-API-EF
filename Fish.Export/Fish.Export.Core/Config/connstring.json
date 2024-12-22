@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "FISH_CONN_STRING": "server=localhost\\sqlexpress;database=superherodb;trusted_connection=true"
+    "FISH_CONN_STRING": "server=localhost;database=master;TrustServerCertificate=true"
   }
 }

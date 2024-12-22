@@ -1,5 +1,4 @@
-﻿using Kendo.Mvc.UI;
-using Mapster;
+﻿using Mapster;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -30,12 +29,12 @@ namespace Fish.Application.Usecase
             var response = new ResponseOne<DeleteCustomerData>();
             var dbCustomer = await context.Customer.FindAsync(request.customerId);
             if (dbCustomer == null)
-                return response.SetResponse("Customer not found.", new DeleteCustomerData { }, trx);
+                return response.ResponseFail("Customer not found.", new DeleteCustomerData { }, trx);
 
             context.Customer.Remove(dbCustomer);
             context.SaveChanges();
 
-            response.SetResponse("Delete Customer", new DeleteCustomerData { }, trx);
+            response.ResponseFail("Delete Customer", new DeleteCustomerData { }, trx);
             return response;
         }
     }

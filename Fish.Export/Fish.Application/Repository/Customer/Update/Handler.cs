@@ -1,13 +1,8 @@
-﻿using Kendo.Mvc.UI;
-using Mapster;
-using MediatR;
-using System.Collections.Generic;
+﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Fish.Data;
 using Fish.Application.Model;
-using Microsoft.EntityFrameworkCore;
-using Fish.Entity.SQL;
 using System;
 
 namespace Fish.Application.Usecase
@@ -31,7 +26,7 @@ namespace Fish.Application.Usecase
             var response = new ResponseOne<UpdateCustomerData>();
             var dbCustomer = await context.Customer.FindAsync(request.customerId);
             if (dbCustomer == null)
-                return response.SetResponse("Customer Not Found", new UpdateCustomerData { }, trx);
+                return response.ResponseFail("Customer Not Found", new UpdateCustomerData { }, trx);
 
             dbCustomer.customerCode = request.customerCode;
             dbCustomer.customerName = request.customerName;
@@ -41,7 +36,7 @@ namespace Fish.Application.Usecase
             await context.SaveChangesAsync();
 
             //return Ok(await context.Customer.ToListAsync());
-            response.SetResponse("Update Customer", new UpdateCustomerData { }, trx);
+            response.ResponseFail("Update Customer", new UpdateCustomerData { }, trx);
             return response;
         }
     }

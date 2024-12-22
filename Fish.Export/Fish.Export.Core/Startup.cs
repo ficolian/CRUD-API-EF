@@ -3,9 +3,12 @@ using Fish.Data;
 using Fish.Web.API.Core.Extension;
 using Hangfire;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Fish.Web.API.Core
@@ -42,6 +45,22 @@ namespace Fish.Web.API.Core
             });
             services.ConfigureSwagger();
             services.AddHealthChecks();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("yZgrQJc/0zwFbD1lZvwrwOHwOaAwdyzyjQzrtQl2SyE=")),
+                            ValidIssuer = "your-issuer",
+                            ValidAudience = "your-audience"
+                        };
+                    });
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,9 +70,7 @@ namespace Fish.Web.API.Core
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseAuthentication();
-          
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -64,14 +81,19 @@ namespace Fish.Web.API.Core
 
             //INITIALIZE USERPROFILE TO RETRIEVE ALL HTTP CONTEXT INFORMATION
 
-            //ADD MIDDLEWARE
-            app.UseCors("AllowAnyOrigin");
-            app.UseHttpsRedirection();
             app.UseRouting();
+            //ADD MIDDLEWARE
+            app.UseCors("AllowAll");
+
+            app.UseHttpsRedirection();
+            //app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            
+            
         }
     }
 }

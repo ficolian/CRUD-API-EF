@@ -1,5 +1,4 @@
-﻿using Kendo.Mvc.UI;
-using MediatR;
+﻿using MediatR;
 using Fish.Application.Model;
 using System;
 

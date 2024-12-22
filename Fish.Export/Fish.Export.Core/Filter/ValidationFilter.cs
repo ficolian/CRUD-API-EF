@@ -24,7 +24,7 @@ public class ValidationFilter : IAsyncActionFilter
                 messages.AddRange(error.Value);
             }
             string errorMessage = string.Join(',', messages);
-            errorResponse.SetResponse(errorMessage, null, System.Guid.NewGuid());
+            errorResponse.ReponseSuccess(errorMessage, null, System.Guid.NewGuid());
 
             context.Result = new BadRequestObjectResult(errorResponse);
             return;

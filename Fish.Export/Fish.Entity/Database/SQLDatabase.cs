@@ -8,5 +8,7 @@ namespace Fish.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<MasterUser> MasterUser { get; set; }
     }
 }

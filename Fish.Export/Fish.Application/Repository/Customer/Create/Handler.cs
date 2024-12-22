@@ -1,5 +1,4 @@
-﻿using Kendo.Mvc.UI;
-using Mapster;
+﻿using Mapster;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -35,7 +34,7 @@ namespace Fish.Application.Usecase
             await context.SaveChangesAsync();
 
             //await context.Customer.ToListAsync();
-            response.SetResponse("Save Customer", new CreateCustomerData { }, trx);
+            response.ResponseFail("Save Customer", new CreateCustomerData { }, trx);
             return response;
         }
     }

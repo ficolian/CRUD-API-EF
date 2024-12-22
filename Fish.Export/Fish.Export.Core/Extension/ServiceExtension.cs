@@ -38,8 +38,8 @@ namespace Fish.Web.API.Core.Extension
         {
             services.AddCors(options =>
             {
-                //[REVISIT] NOT ADVISEABLE FOR PRODUCTION
-                options.AddPolicy("AllowAnyOrigin", builder =>
+                //NOT ADVISEABLE FOR PRODUCTION
+                options.AddPolicy("AllowAll", builder =>
                 {
                     builder.AllowAnyOrigin();
                     builder.AllowAnyMethod();

@@ -1,5 +1,4 @@
-﻿using Kendo.Mvc.UI;
-using Mapster;
+﻿using Mapster;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -29,7 +28,7 @@ namespace Fish.Application.Usecase
             var trx = System.Guid.NewGuid();
             var response = new Response<Customer>();
             var data = await context.Customer.ToListAsync();
-            response.SetResponse("Find Customer", data, trx);
+            response.ReponseSuccess("Find Customer", data, trx);
 
             return response;
         }
