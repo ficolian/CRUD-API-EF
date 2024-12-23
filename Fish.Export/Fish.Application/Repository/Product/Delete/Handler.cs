@@ -29,12 +29,12 @@ namespace Fish.Application.Usecase
             var response = new ResponseOne<DeleteProductData>();
             var dbProduct = await context.Product.FindAsync(request.productId);
             if (dbProduct == null)
-                return response.ResponseFail("Product not found.", new DeleteProductData { }, trx);
+                return response.ResponseFail("Product not found.", null, trx);
 
             context.Product.Remove(dbProduct);
             context.SaveChanges();
 
-            response.ResponseFail("Delete Product", new DeleteProductData { }, trx);
+            response.ResponseSuccess("Delete Product", new DeleteProductData { }, trx);
             return response;
         }
     }

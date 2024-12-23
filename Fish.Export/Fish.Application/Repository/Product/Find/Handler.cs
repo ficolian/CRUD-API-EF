@@ -23,13 +23,27 @@ namespace Fish.Application.Usecase
         {
             var trx = System.Guid.NewGuid();
             var response = new Response<Product>();
-            var data = await context.Product.ToListAsync();
+            var keyword = $"%{request.productName}%";
+            var data = await context.Product
+                                    .ToListAsync();
+            if (!string.IsNullOrWhiteSpace(request.productName))
+            {
+                data = data.Where(x => x.name.Contains(request.productName)).ToList();
+            }
+            if (request.priceMin.HasValue && request.priceMin > 0)
+            {
+                data = data.Where(x => x.price >= request.priceMin).ToList();
+            }
+
+            if (request.priceMax.HasValue && request.priceMax > 0)
+            {
+                data = data.Where(x => x.price <= request.priceMax).ToList();
+            }
 
             var products = data.Skip((request.page - 1) * request.pageSize)
                                .Take(request.pageSize).ToList();
 
-
-            response.ResponseSucess("Find Product", data, request.page, 
+            response.ResponseSucess("Find Product", products, request.page, 
                                      request.pageSize, data.Count(),
                                      trx);
 

@@ -7,8 +7,10 @@ namespace Fish.Application.Usecase
 {
     public class FindProductRequest : IRequest<Response<Product>>
     {
-        public decimal price { get; set; }
-        public int page { get; set; }
-        public int pageSize { get; set; }
+        public string? productName { get; set; }
+        public decimal? priceMin { get; set; }
+        public decimal? priceMax { get; set; }
+        public int page { get; set; } = 1;
+        public int pageSize { get; set; } = 10;
     }
 }

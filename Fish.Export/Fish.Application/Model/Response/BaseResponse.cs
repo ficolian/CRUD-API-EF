@@ -57,7 +57,7 @@ namespace Fish.Application.Model
         public int status { get; set; }
         public Guid transactionId { get; set; }
 
-        public ResponseOne<T> ReponseSuccess(string messages, T datas, Guid transactionIds)
+        public ResponseOne<T> ResponseSuccess(string messages, T datas, Guid transactionIds)
         {
             message = messages;
             data = datas;

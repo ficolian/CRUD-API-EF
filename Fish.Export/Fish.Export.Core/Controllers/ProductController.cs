@@ -31,10 +31,15 @@ namespace Fish.Export.Controllers
         }
 
         [Authorize]
-        [HttpGet("find")]
-        public async Task<ActionResult<ResponseOne<FindProductData>>> FindUser()
+        [HttpPost("find")]
+        public async Task<ActionResult<ResponseOne<FindProductData>>> FindProduct([FromBody] FindProductRequest request)
         {
-            FindProductRequest request = new FindProductRequest();
+            return Ok(await Mediator.Send(request));
+        }
+        [Authorize]
+        [HttpGet("detail/{productId}")]
+        public async Task<ActionResult<ResponseOne<GetProductData>>> GetProduct([FromRoute] GetProductRequest request)
+        {
             return Ok(await Mediator.Send(request));
         }
 

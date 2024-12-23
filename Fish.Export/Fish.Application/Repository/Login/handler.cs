@@ -36,13 +36,14 @@ namespace Fish.Application.Usecase
             if(getUser != null)
             {
                 var token = jwtService.GenerateJwtToken(request.username, getUser.gmail);
-                return response.ResponseFail("Login Success", 
+                return response.ResponseSuccess("Login Success", 
                                             new UserCredData { validFrom = DateTime.Now, 
                                                                validTo = DateTime.Now.AddMinutes(30), 
+                                                               gmail = getUser.gmail, 
                                                                token = token }, trx);
             }
 
-            response.ResponseFail("User not found", null, trx);
+            response.ResponseSuccess("User not found", null, trx);
             return response;
         }
     }

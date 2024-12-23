@@ -29,11 +29,12 @@ namespace Fish.Application.Usecase
                 return response.ResponseFail("Product Not Found", new UpdateProductData { }, trx);
 
             dbProduct.name = request.productName;
-            dbProduct.description = request.productName;
+            dbProduct.description = request.description;
+            dbProduct.price = request.price;
             await context.SaveChangesAsync();
 
             //return Ok(await context.Product.ToListAsync());
-            response.ResponseFail("Update Product", new UpdateProductData { }, trx);
+            response.ResponseSuccess("Update Product", new UpdateProductData { }, trx);
             return response;
         }
     }

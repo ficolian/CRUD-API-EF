@@ -36,7 +36,7 @@ namespace Fish.Application.Usecase
             await context.SaveChangesAsync();
 
             //await context.Product.ToListAsync();
-            response.ResponseFail("Save Product", new CreateProductData { }, trx);
+            response.ResponseSuccess("Save Product", new CreateProductData { }, trx);
             return response;
         }
     }

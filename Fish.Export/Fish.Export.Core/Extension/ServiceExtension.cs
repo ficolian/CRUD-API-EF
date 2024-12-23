@@ -38,12 +38,13 @@ namespace Fish.Web.API.Core.Extension
         {
             services.AddCors(options =>
             {
-                //NOT ADVISEABLE FOR PRODUCTION
                 options.AddPolicy("AllowAll", builder =>
                 {
-                    builder.AllowAnyOrigin();
-                    builder.AllowAnyMethod();
-                    builder.AllowAnyHeader();
+                    builder
+                        .WithOrigins("http://localhost:3004")  // Example for local dev
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
                 });
             });
         }
